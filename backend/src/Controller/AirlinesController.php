@@ -11,7 +11,7 @@ class AirlinesController extends AppController
 
     public function index()
     {
-        $airlines = $this->Airlines->find('all');
+        $airlines = $this->Airlines->find('all', ['contain' => ['Countries']]);
         $this->set([
             'airlines' => $airlines,
             '_serialize' => ['airlines']
@@ -20,7 +20,7 @@ class AirlinesController extends AppController
 
     public function view($id)
     {
-        $airline = $this->Airlines->get($id);
+        $airline = $this->Airlines->get($id, ['contain' => ['Countries']]);
         $this->set([
             'airline' => $airline,
             '_serialize' => ['airline']

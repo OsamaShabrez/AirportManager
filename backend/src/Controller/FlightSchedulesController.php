@@ -11,7 +11,7 @@ class FlightSchedulesController extends AppController
 
     public function index()
     {
-        $flightSchedules = $this->FlightSchedules->find('all');
+        $flightSchedules = $this->FlightSchedules->find('all', ['contain' => ['Airlines', 'DepartAirport' => ['Countries'], 'ArriveAirport' => ['Countries']]]);
         $this->set([
             'flightSchedules' => $flightSchedules,
             '_serialize' => ['flightSchedules']

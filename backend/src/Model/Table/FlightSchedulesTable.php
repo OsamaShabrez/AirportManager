@@ -43,11 +43,13 @@ class FlightSchedulesTable extends Table
             'foreignKey' => 'airline_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Airports', [
+        $this->belongsTo('DepartAirport', [
+            'className' => 'Airports',
             'foreignKey' => 'depart_airport_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Airports', [
+        $this->belongsTo('ArriveAirport', [
+          'className' => 'Airports',
             'foreignKey' => 'arrive_airport_id',
             'joinType' => 'INNER'
         ]);

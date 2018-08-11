@@ -11,8 +11,7 @@ class AirportsController extends AppController
 
     public function index()
     {
-        $airports = $this->Airports
-        ->find('all');
+        $airports = $this->Airports->find('all', ['contain' => ['Countries']]);
         $this->set([
             'airports' => $airports,
             '_serialize' => ['airports']
@@ -21,7 +20,7 @@ class AirportsController extends AppController
 
     public function view($id)
     {
-        $airport = $this->Airports->get($id);
+        $airport = $this->Airports->get($id, ['contain' => ['Countries']]);
         $this->set([
             'airport' => $airport,
             '_serialize' => ['airport']
