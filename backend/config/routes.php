@@ -51,6 +51,9 @@ Router::scope('/api', function ($routes) {
     $routes->resources('Countries', [
       'only' => ['index']
     ]);
+    $routes->resources('Airports');
+    $routes->resources('Airlines');
+    $routes->resources('FlightSchedules'); //, ['path' => 'schedules']);
 });
 
 // Router::scope('/', function (RouteBuilder $routes) {
