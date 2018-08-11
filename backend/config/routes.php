@@ -45,9 +45,12 @@ use Cake\Routing\Route\DashedRoute;
  *
  */
 Router::defaultRouteClass(DashedRoute::class);
-Router::scope('/', function ($routes) {
+Router::scope('/api', function ($routes) {
     $routes->setExtensions(['json']);
-    $routes->resources('Default');
+    $routes->connect('/', ['controller' => 'Default', 'action' => 'index']);
+    $routes->resources('Countries', [
+      'only' => ['index']
+    ]);
 });
 
 // Router::scope('/', function (RouteBuilder $routes) {
