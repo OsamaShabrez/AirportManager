@@ -83,6 +83,7 @@ export default class AirportsDashboard extends Component {
           this.setState({
             airports: this.state.airports.concat(response.data.airport)
           });
+          this.tableRowClicked(airport)
         } else {
           console.log("Bad status code: " + response.status);
           console.log(response.message);
@@ -133,6 +134,7 @@ export default class AirportsDashboard extends Component {
           this.setState({
             airports: newAirports
           });
+          this.tableRowClicked(airport)
         } else {
           console.log("Bad status code: " + response.status);
           console.log(response.message);
