@@ -32,8 +32,9 @@ class AirportsController extends AppController
         $airport = $this->Airports->newEntity($this->request->getData());
         if ($this->Airports->save($airport)) {
             $message = 'Saved';
+            $airport = $this->Airports->get($airport->id, ['contain' => ['Countries']]);
         } else {
-            $message = 'Error';
+            $message = $airport->getErrors();
         }
         $this->set([
             'message' => $message,
@@ -49,13 +50,15 @@ class AirportsController extends AppController
             $airport = $this->Airports->patchEntity($airport, $this->request->getData());
             if ($this->Airports->save($airport)) {
                 $message = 'Saved';
+                $airport = $this->Airports->get($airport->id, ['contain' => ['Countries']]);
             } else {
-                $message = 'Error';
+                $message = $airport->getErrors();
             }
         }
         $this->set([
             'message' => $message,
-            '_serialize' => ['message']
+            'airport' => $airport,
+            '_serialize' => ['message', 'airport']
         ]);
     }
 

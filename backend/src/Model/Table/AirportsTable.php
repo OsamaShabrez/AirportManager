@@ -72,14 +72,12 @@ class AirportsTable extends Table
         $validator
             ->numeric('longitude')
             ->requirePresence('longitude', 'create')
-            ->notEmpty('longitude')
-            ->add('longitude', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmpty('longitude');
 
         $validator
             ->numeric('latitude')
             ->requirePresence('latitude', 'create')
-            ->notEmpty('latitude')
-            ->add('latitude', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmpty('latitude');
 
         return $validator;
     }
@@ -93,8 +91,6 @@ class AirportsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['latitude']));
-        $rules->add($rules->isUnique(['longitude']));
         $rules->add($rules->isUnique(['IATA_code']));
         $rules->add($rules->isUnique(['name']));
         $rules->add($rules->existsIn(['country_id'], 'Countries'));
