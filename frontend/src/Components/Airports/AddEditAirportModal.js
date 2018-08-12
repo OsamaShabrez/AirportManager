@@ -4,7 +4,7 @@ import { Button, Form, Input, Modal, ModalHeader, ModalBody, ModalFooter }  from
 
 import GMapsContainer from "../GoogleMaps/GMapsContainer";
 
-export default class AddEditModal extends React.Component {
+export default class AddEditAirportModal extends React.Component {
   static propTypes = {
     airport: PropTypes.object.isRequired,
     callbackMethod: PropTypes.func.isRequired,
