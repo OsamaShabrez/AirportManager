@@ -1,3 +1,7 @@
+th {background-color: #e3f2fd;border-color: #e3f2fd;}
 .navbar-light{background-color: #e3f2fd;}
 .nav-item a {color:rgba(0,0,0,.5);padding-right: .5rem;padding-left: .5rem;display: block;padding: .5rem 1rem;}
 .nav-item a:hover, .nav-item a:focus{color: rgba(0,0,0,.7);text-decoration: none;}
+.gmaps-object{position: relative;height:250px;}
+.emoji{cursor: pointer;}
+.top-buffer{margin-top: 8px;}
