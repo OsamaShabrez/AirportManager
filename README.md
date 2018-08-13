@@ -20,3 +20,5 @@
 * CakePHP does not act nice with composite primary keys. In terms of database design composite primary keys should be avoided but since I had made the choice already so I wrote the code to make it work. This is something I am not very proud of in this project
 * Business logic can be improved in some places. Error messages can be handled better. Try flying and landing at the same airport ;)
 * A lot of room for improvement to make it bulletproof from all angels but it is outside the scope of this project
+
+![Application Demo](https://raw.githubusercontent.com/OsamaShabrez/AirportManager/master/demo.png)
