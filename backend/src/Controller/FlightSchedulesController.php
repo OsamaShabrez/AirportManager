@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use Cake\ORM\Exception\PersistenceFailedException;
+
 class FlightSchedulesController extends AppController
 {
     public function initialize()
@@ -40,7 +42,7 @@ class FlightSchedulesController extends AppController
             $flightSchedule = $this->FlightSchedules->get([$flightSchedule->airline_id, $flightSchedule->depart_airport_id, $flightSchedule->arrive_airport_id],
               ['contain' => ['Airlines', 'DepartAirport' => ['Countries'], 'ArriveAirport' => ['Countries']]]);
         } else {
-            $message = $flightSchedule->getErrors();
+            throw new PersistenceFailedException($flightSchedule, $flightSchedule->Errors());
         }
         $this->set([
             'message' => $message,
@@ -64,7 +66,7 @@ class FlightSchedulesController extends AppController
                 $flightSchedule = $this->FlightSchedules->get([$flightSchedule->airline_id, $flightSchedule->depart_airport_id, $flightSchedule->arrive_airport_id],
                   ['contain' => ['Airlines', 'DepartAirport' => ['Countries'], 'ArriveAirport' => ['Countries']]]);
             } else {
-                $message = $flightSchedule->getErrors();
+                throw new PersistenceFailedException($flightSchedule, $flightSchedule->Errors());
             }
         }
         $this->set([
@@ -79,7 +81,7 @@ class FlightSchedulesController extends AppController
         $flightSchedule = $this->FlightSchedules->get([$airline_id, $depart_airport_id, $arrive_airport_id]);
         $message = 'Deleted';
         if (!$this->FlightSchedules->delete($flightSchedule)) {
-            $message = $flightSchedule->getErrors();
+            throw new PersistenceFailedException($flightSchedule, $flightSchedule->Errors());
         }
         $this->set([
             'message' => $message,

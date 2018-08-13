@@ -45,6 +45,25 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'storage' => 'Memory',
+            'authenticate' => [
+                'Form' => [
+                    'scope' => ['Users.active' => 1]
+                ],
+                'ADmad/JwtAuth.Jwt' => [
+                    'parameter' => 'token',
+                    'userModel' => 'Users',
+                    'scope' => ['Users.active' => 1],
+                    'fields' => [
+                        'username' => 'id'
+                    ],
+                    'queryDatasource' => true
+                ]
+            ],
+            'unauthorizedRedirect' => false,
+            'checkAuthIn' => 'Controller.initialize'
+        ]);
 
         /*
          * Enable the following component for recommended CakePHP security settings.
@@ -53,14 +72,14 @@ class AppController extends Controller
         //$this->loadComponent('Security');
     }
 
-    /*
-     * Enable json rendering without using any template or views
-     * We can now safely delete View and Template folder
-     */
-    public function beforeRender(Event $event)
-    {
-        $this->RequestHandler->renderAs($this, 'json');
-        $this->response->type('application/json');
-        $this->set('_serialize', true);
-    }
+    // /*
+    //  * Enable json rendering without using any template or views
+    //  * We can now safely delete View and Template folder
+    //  */
+    // public function beforeRender(Event $event)
+    // {
+    //     $this->RequestHandler->renderAs($this, 'json');
+    //     $this->response->type('application/json');
+    //     $this->set('_serialize', true);
+    // }
 }

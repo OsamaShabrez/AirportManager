@@ -198,3 +198,4 @@ Type::build('timestamp')
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 Plugin::load('Cors', ['bootstrap' => true, 'routes' => false]);
+Plugin::load('ADmad/JwtAuth');

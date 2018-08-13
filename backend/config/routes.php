@@ -62,6 +62,10 @@ Router::scope('/api', function ($routes) {
           ->setPass(['air_id', 'depart_id', 'arrive_id']);
     $routes->delete('/flight_schedules/:airline_id/:depart_airport_id/:arrive_airport_id', ['controller' => 'FlightSchedules', 'action' => 'delete'])
            ->setPass(['airline_id', 'depart_airport_id', 'arrive_airport_id']);
+
+});
+Router::scope('/', function (RouteBuilder $routes) {
+  $routes->fallbacks(DashedRoute::class);
 });
 
 // Router::scope('/', function (RouteBuilder $routes) {
@@ -93,5 +97,4 @@ Router::scope('/api', function ($routes) {
 //      * You can remove these routes once you've connected the
 //      * routes you want in your application.
 //      */
-//     $routes->fallbacks(DashedRoute::class);
 // });

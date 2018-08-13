@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use Cake\ORM\Exception\PersistenceFailedException;
+
 class AirportsController extends AppController
 {
     public function initialize()
@@ -34,7 +36,7 @@ class AirportsController extends AppController
             $message = 'Saved';
             $airport = $this->Airports->get($airport->id, ['contain' => ['Countries']]);
         } else {
-            $message = $airport->getErrors();
+            throw new PersistenceFailedException($airport, $airport->Errors());
         }
         $this->set([
             'message' => $message,
@@ -52,7 +54,7 @@ class AirportsController extends AppController
                 $message = 'Saved';
                 $airport = $this->Airports->get($airport->id, ['contain' => ['Countries']]);
             } else {
-                $message = $airport->getErrors();
+                throw new PersistenceFailedException($airport, $airport->Errors());
             }
         }
         $this->set([
@@ -67,7 +69,7 @@ class AirportsController extends AppController
         $airport = $this->Airports->get($id);
         $message = 'Deleted';
         if (!$this->Airports->delete($airport)) {
-            $message = 'Error';
+            throw new PersistenceFailedException($airport, $airport->Errors());
         }
         $this->set([
             'message' => $message,
