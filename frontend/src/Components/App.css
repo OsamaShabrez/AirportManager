@@ -4,4 +4,6 @@ th {background-color: #e3f2fd;border-color: #e3f2fd;}
 .nav-item a:hover, .nav-item a:focus{color: rgba(0,0,0,.7);text-decoration: none;}
 .gmaps-object{position: relative;height:250px;}
 .emoji{cursor: pointer;}
+.svg-wrapper{position: relative;overflow: hidden;padding: 0!important;}
+.svg-wrapper img{position: absolute;height:34px;}
 .top-buffer{margin-top: 8px;}

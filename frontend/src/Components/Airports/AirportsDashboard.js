@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import AddEditModal from "./AddEditModal";
+import AddEditAirportModal from "./AddEditAirportModal";
 import DeleteModal from "../Elements/DeleteModal";
 import GMapsContainer from "../GoogleMaps/GMapsContainer";
 import { FETCH_ALL_COUNTRIES, AIRPORT_API } from "../../_Constants";
@@ -173,7 +173,7 @@ export default class AirportsDashboard extends Component {
             <h2>Manage Airports</h2>
           </div>
           <div className="col-auto">
-            <AddEditModal airport={{}} callbackMethod={this.addNewRecord} centerAroundCurrentLocation={true} countries_list={countries} requestType={"POST"} ref="addNewAirport" />
+            <AddEditAirportModal airport={{}} callbackMethod={this.addNewRecord} centerAroundCurrentLocation={true} countries_list={countries} requestType={"POST"} ref="addNewAirport" />
             <button type="button" className="btn btn-secondary pull-right" onClick={() => this.refs["addNewAirport"].toggleModal()}>Add New Airport</button>
           </div>
         </div>
@@ -202,7 +202,7 @@ export default class AirportsDashboard extends Component {
                       <span className="emoji" role="img" aria-label="edit" onClick={() => this.refs["editModalRef-" + airport.id].toggleModal()}>&#9997;</span> |
                       <span className="emoji" role="img" aria-label="delete" onClick={() => this.refs["deleteModalRef-" + airport.id].confirmDeleteAction()}>&#10060;</span>
                     </td>
-                    <AddEditModal id={airport.id} airport={airport} callbackMethod={this.editRecord} countries_list={countries} requestType={"PATCH"} ref={"editModalRef-" + airport.id} />
+                    <AddEditAirportModal id={airport.id} airport={airport} callbackMethod={this.editRecord} countries_list={countries} requestType={"PATCH"} ref={"editModalRef-" + airport.id} />
                     <DeleteModal deleteMethod={this.deleteRecord} id={airport.id} title={airport.name} ref={"deleteModalRef-" + airport.id} />
                   </tr>
                 )

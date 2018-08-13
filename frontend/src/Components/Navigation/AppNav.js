@@ -14,7 +14,7 @@ export default class AppNav extends Component {
           <div className="collapse navbar-collapse" id="myapp-navbars">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <NavLink to="/">Dashboard</NavLink>
+                <NavLink to="/countries">Countries</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to="/airports">Airports</NavLink>

@@ -5,7 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter }  from 'reactstrap'
 export default class DeleteModal extends React.Component {
   static propTypes = {
     deleteMethod: PropTypes.func.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.any.isRequired,
     title: PropTypes.string.isRequired
   }
   constructor() {
