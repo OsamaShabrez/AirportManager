@@ -16,7 +16,7 @@ export default class countriesDashboard extends Component {
   }
 
   componentDidMount() {
-    axios.get(FETCH_ALL_COUNTRIES, {
+    axios.get(FETCH_ALL_COUNTRIES + ".json", {
       cancelToken: this.state.axios.source.token
     }).then((response) => {
         if (response.status === 200) {

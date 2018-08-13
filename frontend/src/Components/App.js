@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Switch, Redirect, Route } from 'react-router-dom';
 
 import AirlinesDashboard from "./Airlines/AirlinesDashboard";
@@ -9,6 +10,9 @@ import FlightSchedulesDashboard from "./FlightSchedules/FlightSchedulesDashboard
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+
+// setting JWT secret for login
+axios.defaults.headers.common['Authorization'] = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTUzNDczNjc1MX0.sTS6RkxxpKn_dtb4RfS1F6SzyiQxLHpFsuFzMhE61IA';
 
 export default class App extends Component {
   mainRedirect(props) {

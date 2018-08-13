@@ -23,7 +23,7 @@ export default class FlightSchedulesDashboard extends Component {
   }
 
   componentDidMount() {
-    axios.get(FLIGHT_SCHEDULE_API, {
+    axios.get(FLIGHT_SCHEDULE_API + ".json", {
       cancelToken: this.state.axios.source.token
     })
       .then((response) => {
@@ -31,7 +31,7 @@ export default class FlightSchedulesDashboard extends Component {
           this.setState({
             flightSchedules: response.data.flightSchedules
           });
-          axios.get(AIRPORT_API, {
+          axios.get(AIRPORT_API + ".json", {
             cancelToken: this.state.axios.source.token
           }).then((response) => {
               if (response.status === 200) {
@@ -50,7 +50,7 @@ export default class FlightSchedulesDashboard extends Component {
                 console.error("Request failed", error.message);
               }
             })
-            axios.get(AIRLINE_API, {
+            axios.get(AIRLINE_API + ".json", {
               cancelToken: this.state.axios.source.token
             }).then((response) => {
                 if (response.status === 200) {
@@ -88,7 +88,7 @@ export default class FlightSchedulesDashboard extends Component {
   }
 
   addNewRecord(flightSchedule) {
-    axios.post(FLIGHT_SCHEDULE_API, flightSchedule)
+    axios.post(FLIGHT_SCHEDULE_API + ".json", flightSchedule)
       .then((response) => {
         if (response.status === 200) {
           console.log("record inserted successfully.");
@@ -110,7 +110,7 @@ export default class FlightSchedulesDashboard extends Component {
   }
 
   deleteRecord(flightSchedule) {
-    axios.delete(`${FLIGHT_SCHEDULE_API}/${flightSchedule.airline_id}/${flightSchedule.depart_airport_id}/${flightSchedule.arrive_airport_id}`, {
+    axios.delete(`${FLIGHT_SCHEDULE_API}/${flightSchedule.airline_id}/${flightSchedule.depart_airport_id}/${flightSchedule.arrive_airport_id}.json`, {
       cancelToken: this.state.axios.source.token
     })
       .then((response) => {
@@ -137,7 +137,7 @@ export default class FlightSchedulesDashboard extends Component {
 
   editRecord(flightSchedule) {
     console.log(`${FLIGHT_SCHEDULE_API}/${flightSchedule.oldURL}`);
-    axios.put(`${FLIGHT_SCHEDULE_API}/${flightSchedule.oldURL}`, flightSchedule)
+    axios.put(`${FLIGHT_SCHEDULE_API}/${flightSchedule.oldURL}.json`, flightSchedule)
       .then((response) => {
         if (response.status === 200 && response.data.message === "Saved") {
           console.log("record edited successfully.");

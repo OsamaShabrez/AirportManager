@@ -22,7 +22,7 @@ export default class AirlinesDashboard extends Component {
   }
 
   componentDidMount() {
-    axios.get(AIRLINE_API, {
+    axios.get(AIRLINE_API + ".json", {
       cancelToken: this.state.axios.source.token
     })
       .then((response) => {
@@ -30,7 +30,7 @@ export default class AirlinesDashboard extends Component {
           this.setState({
             airlines: response.data.airlines
           });
-          axios.get(FETCH_ALL_COUNTRIES, {
+          axios.get(FETCH_ALL_COUNTRIES + ".json", {
             cancelToken: this.state.axios.source.token
           }).then((response) => {
               if (response.status === 200) {
@@ -68,7 +68,7 @@ export default class AirlinesDashboard extends Component {
   }
 
   addNewRecord(airline) {
-    axios.post(AIRLINE_API, airline)
+    axios.post(AIRLINE_API + ".json", airline)
       .then((response) => {
         if (response.status === 200) {
           console.log("record inserted successfully.");
@@ -90,7 +90,7 @@ export default class AirlinesDashboard extends Component {
   }
 
   deleteRecord(airlineId) {
-    axios.delete(AIRLINE_API + "/" + airlineId, {
+    axios.delete(AIRLINE_API + "/" + airlineId + ".json", {
       cancelToken: this.state.axios.source.token
     })
       .then((response) => {
@@ -115,7 +115,7 @@ export default class AirlinesDashboard extends Component {
   }
 
   editRecord(airline) {
-    axios.put(AIRLINE_API + "/" + airline.id, airline)
+    axios.put(AIRLINE_API + "/" + airline.id + ".json", airline)
       .then((response) => {
         if (response.status === 200 && response.data.message === "Saved") {
           console.log("record edited successfully.");

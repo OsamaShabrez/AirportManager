@@ -30,7 +30,7 @@ export default class AirportsDashboard extends Component {
   }
 
   componentDidMount() {
-    axios.get(AIRPORT_API, {
+    axios.get(AIRPORT_API + ".json", {
       cancelToken: this.state.axios.source.token
     })
       .then((response) => {
@@ -38,7 +38,7 @@ export default class AirportsDashboard extends Component {
           this.setState({
             airports: response.data.airports
           });
-          axios.get(FETCH_ALL_COUNTRIES, {
+          axios.get(FETCH_ALL_COUNTRIES + ".json", {
             cancelToken: this.state.axios.source.token
           }).then((response) => {
               if (response.status === 200) {
@@ -76,7 +76,7 @@ export default class AirportsDashboard extends Component {
   }
 
   addNewRecord(airport) {
-    axios.post(AIRPORT_API, airport)
+    axios.post(AIRPORT_API + ".json", airport)
       .then((response) => {
         if (response.status === 200) {
           console.log("record inserted successfully.");
@@ -99,7 +99,7 @@ export default class AirportsDashboard extends Component {
   }
 
   deleteRecord(airportId) {
-    axios.delete(AIRPORT_API + "/" + airportId, {
+    axios.delete(AIRPORT_API + "/" + airportId + ".json", {
       cancelToken: this.state.axios.source.token
     })
       .then((response) => {
@@ -124,7 +124,7 @@ export default class AirportsDashboard extends Component {
   }
 
   editRecord(airport) {
-    axios.put(AIRPORT_API + "/" + airport.id, airport)
+    axios.put(AIRPORT_API + "/" + airport.id + ".json", airport)
       .then((response) => {
         if (response.status === 200 && response.data.message === "Saved") {
           console.log("record edited successfully.");
@@ -184,7 +184,8 @@ export default class AirportsDashboard extends Component {
             <tr className="d-flex">
               <th className="col-1"></th>
               <th className="col-4">Name</th>
-              <th className="col-2 text-center">IATA Code</th>
+              <th className="col-1 text-center">IATA Code</th>
+              <th className="col-1"></th>
               <th className="col-3 text-center">Country</th>
               <th className="col-2 text-center">Operations</th>
             </tr>
@@ -196,7 +197,8 @@ export default class AirportsDashboard extends Component {
                   <tr key={index} className="d-flex">
                     <td className="col-1" onClick={() => this.tableRowClicked(airport)}>{index+1}</td>
                     <td className="col-4" onClick={() => this.tableRowClicked(airport)}>{airport.name}</td>
-                    <td className="col-2 text-center" onClick={() => this.tableRowClicked(airport)}>{airport.IATA_code}</td>
+                    <td className="col-1 text-center" onClick={() => this.tableRowClicked(airport)}>{airport.IATA_code}</td>
+                    <td className="col-1 svg-wrapper"><img src={"flag-svg/" + airport.country.ISO + ".svg"} alt={"country flag " + airport.country.ISO} /></td>
                     <td className="col-3" onClick={() => this.tableRowClicked(airport)}>{airport.country.name}</td>
                     <td className="col-2 text-center">
                       <span className="emoji" role="img" aria-label="edit" onClick={() => this.refs["editModalRef-" + airport.id].toggleModal()}>&#9997;</span> |
