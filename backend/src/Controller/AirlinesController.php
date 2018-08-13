@@ -32,8 +32,9 @@ class AirlinesController extends AppController
         $airline = $this->Airlines->newEntity($this->request->getData());
         if ($this->Airlines->save($airline)) {
             $message = 'Saved';
+            $airline = $this->Airlines->get($airline->id, ['contain' => ['Countries']]);
         } else {
-            $message = 'Error';
+            $message = $airline->getErrors();
         }
         $this->set([
             'message' => $message,
@@ -49,13 +50,15 @@ class AirlinesController extends AppController
             $airline = $this->Airlines->patchEntity($airline, $this->request->getData());
             if ($this->Airlines->save($airline)) {
                 $message = 'Saved';
+                $airline = $this->Airlines->get($airline->id, ['contain' => ['Countries']]);
             } else {
-                $message = 'Error';
+                $message = $airline->getErrors();
             }
         }
         $this->set([
             'message' => $message,
-            '_serialize' => ['message']
+            'airline' => $airline,
+            '_serialize' => ['message', 'airline']
         ]);
     }
 
@@ -64,7 +67,7 @@ class AirlinesController extends AppController
         $airline = $this->Airlines->get($id);
         $message = 'Deleted';
         if (!$this->Airlines->delete($airline)) {
-            $message = 'Error';
+            $message = $airline->getErrors();
         }
         $this->set([
             'message' => $message,

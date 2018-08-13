@@ -53,7 +53,15 @@ Router::scope('/api', function ($routes) {
     ]);
     $routes->resources('Airports');
     $routes->resources('Airlines');
-    $routes->resources('FlightSchedules'); //, ['path' => 'schedules']);
+    $routes->resources('FlightSchedules');
+
+    // custom routes to handle composite primary key in cakePHP
+    $routes->get('/flight_schedules/:airline_id/:depart_airport_id/:arrive_airport_id', ['controller' => 'FlightSchedules', 'action' => 'view'])
+           ->setPass(['airline_id', 'depart_airport_id', 'arrive_airport_id']);
+    $routes->put('/flight_schedules/:air_id/:depart_id/:arrive_id', ['controller' => 'FlightSchedules', 'action' => 'edit'])
+          ->setPass(['air_id', 'depart_id', 'arrive_id']);
+    $routes->delete('/flight_schedules/:airline_id/:depart_airport_id/:arrive_airport_id', ['controller' => 'FlightSchedules', 'action' => 'delete'])
+           ->setPass(['airline_id', 'depart_airport_id', 'arrive_airport_id']);
 });
 
 // Router::scope('/', function (RouteBuilder $routes) {

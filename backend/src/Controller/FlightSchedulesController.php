@@ -18,9 +18,10 @@ class FlightSchedulesController extends AppController
         ]);
     }
 
-    public function view($id)
+    public function view($airline_id, $depart_airport_id, $arrive_airport_id)
     {
-        $flightSchedule = $this->FlightSchedules->get($id);
+        $flightSchedule = $this->FlightSchedules->get([$airline_id, $depart_airport_id, $arrive_airport_id],
+          ['contain' => ['Airlines', 'DepartAirport' => ['Countries'], 'ArriveAirport' => ['Countries']]]);
         $this->set([
             'flightSchedule' => $flightSchedule,
             '_serialize' => ['flightSchedule']
@@ -29,11 +30,17 @@ class FlightSchedulesController extends AppController
 
     public function add()
     {
-        $flightSchedule = $this->FlightSchedules->newEntity($this->request->getData());
+        $data = $this->request->getData();
+        $flightSchedule = $this->FlightSchedules->newEntity();
+        $flightSchedule->airline_id = $data['airline_id'];
+        $flightSchedule->depart_airport_id = $data['depart_airport_id'];
+        $flightSchedule->arrive_airport_id = $data['arrive_airport_id'];
         if ($this->FlightSchedules->save($flightSchedule)) {
             $message = 'Saved';
+            $flightSchedule = $this->FlightSchedules->get([$flightSchedule->airline_id, $flightSchedule->depart_airport_id, $flightSchedule->arrive_airport_id],
+              ['contain' => ['Airlines', 'DepartAirport' => ['Countries'], 'ArriveAirport' => ['Countries']]]);
         } else {
-            $message = 'Error';
+            $message = $flightSchedule->getErrors();
         }
         $this->set([
             'message' => $message,
@@ -42,29 +49,37 @@ class FlightSchedulesController extends AppController
         ]);
     }
 
-    public function edit($id)
+    public function edit($air_id, $depart_id, $arrive_id)
     {
-        $flightSchedule = $this->FlightSchedules->get($id);
+        $flightSchedule = $this->FlightSchedules->get([$air_id, $depart_id, $arrive_id]);
         if ($this->request->is(['post', 'put'])) {
-            $flightSchedule = $this->FlightSchedules->patchEntity($flightSchedule, $this->request->getData());
+            $this->FlightSchedules->delete($flightSchedule);
+            $flightSchedule = $this->FlightSchedules->newEntity();
+            $data = $this->request->getData();
+            $flightSchedule->airline_id = $data['airline_id'];
+            $flightSchedule->depart_airport_id = $data['depart_airport_id'];
+            $flightSchedule->arrive_airport_id = $data['arrive_airport_id'];
             if ($this->FlightSchedules->save($flightSchedule)) {
                 $message = 'Saved';
+                $flightSchedule = $this->FlightSchedules->get([$flightSchedule->airline_id, $flightSchedule->depart_airport_id, $flightSchedule->arrive_airport_id],
+                  ['contain' => ['Airlines', 'DepartAirport' => ['Countries'], 'ArriveAirport' => ['Countries']]]);
             } else {
-                $message = 'Error';
+                $message = $flightSchedule->getErrors();
             }
         }
         $this->set([
             'message' => $message,
-            '_serialize' => ['message']
+            'flightSchedule' => $flightSchedule,
+            '_serialize' => ['message', 'flightSchedule']
         ]);
     }
 
-    public function delete($id)
+    public function delete($airline_id, $depart_airport_id, $arrive_airport_id)
     {
-        $flightSchedule = $this->FlightSchedules->get($id);
+        $flightSchedule = $this->FlightSchedules->get([$airline_id, $depart_airport_id, $arrive_airport_id]);
         $message = 'Deleted';
         if (!$this->FlightSchedules->delete($flightSchedule)) {
-            $message = 'Error';
+            $message = $flightSchedule->getErrors();
         }
         $this->set([
             'message' => $message,

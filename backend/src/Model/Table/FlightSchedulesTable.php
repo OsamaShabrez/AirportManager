@@ -65,8 +65,8 @@ class FlightSchedulesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['airline_id'], 'Airlines'));
-        $rules->add($rules->existsIn(['depart_airport_id'], 'Airports'));
-        $rules->add($rules->existsIn(['arrive_airport_id'], 'Airports'));
+        $rules->add($rules->existsIn(['depart_airport_id'], 'DepartAirport'));
+        $rules->add($rules->existsIn(['arrive_airport_id'], 'ArriveAirport'));
 
         return $rules;
     }

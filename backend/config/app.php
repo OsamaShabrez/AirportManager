@@ -381,11 +381,5 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
-    ],
-    'Cors' => [
-        'AllowOrigin' => 'http://localhost:3000',
-        'AllowCredentials' => true,
-        'AllowHeaders' => true,
-        'MaxAge' => false,
     ]
 ];
